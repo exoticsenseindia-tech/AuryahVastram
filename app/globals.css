@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --background: #FAFAF9;
+  --foreground: #1c1917;
+  
+  /* Brand Colors */
+  --brand-gold: #C5A059;
+  --brand-black: #1c1917;
+  --brand-bg: #FAFAF9;
+  --brand-gray: #a8a29e;
+  
+  --font-playfair: var(--font-playfair);
+  --font-inter: var(--font-inter);
+  --font-montserrat: var(--font-montserrat);
+}
+
+@theme inline {
+  --color-background: var(--brand-bg);
+  --color-foreground: var(--brand-black);
+  
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-black: var(--brand-black);
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-gray: var(--brand-gray);
+
+  --font-playfair: var(--font-playfair);
+  --font-inter: var(--font-inter);
+  --font-sans: var(--font-inter); 
+  --font-serif: var(--font-playfair);
+}
+
+body {
+  background: var(--brand-bg);
+  color: var(--brand-black);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-playfair), serif;
+}
+
+/* Custom Utilities */
+.hoverable {
+  cursor: pointer;
+}
+
+/* Cursor Styles */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--brand-black);
+  position: fixed;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.cursor-outline {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(28, 25, 23, 0.5);
+  position: fixed;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.cursor-outline.hovered {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(197, 160, 89, 0.1);
+  border-color: var(--brand-gold);
+  backdrop-filter: blur(2px);
+}
+
+@media (max-width: 768px) {
+  .cursor-dot, .cursor-outline { display: none !important; }
+}
+
+/* Animations */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Utility classes for animations handled by JS often, but keeping helpers */
+.fade-in {
+  opacity: 0;
+  transition: opacity 1.2s ease-out;
+}
+.fade-in.visible { opacity: 1; }
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+.scale-reveal {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+.scale-reveal.visible { opacity: 1; transform: scale(1); }
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+.slide-in-left.visible { opacity: 1; transform: translateX(0); }
+
+.stagger-text > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.stagger-text.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-text.visible > *:nth-child(1) { transition-delay: 0.1s; }
+.stagger-text.visible > *:nth-child(2) { transition-delay: 0.2s; }
+.stagger-text.visible > *:nth-child(3) { transition-delay: 0.3s; }
+.stagger-text.visible > *:nth-child(4) { transition-delay: 0.4s; }
+
+.btn-line {
+  position: relative;
+}
+.btn-line::after {
+  content: '';
+  display: block; width: 0; height: 1px;
+  background: var(--brand-gold);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-line:hover::after { width: 100%; }
+
+/* Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
